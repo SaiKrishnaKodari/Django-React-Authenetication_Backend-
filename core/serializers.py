@@ -1,6 +1,7 @@
 from rest_framework import serializers
 from rest_framework_jwt.settings import api_settings
 from django.contrib.auth.models import User
+from .models import demo
 
 
 class UserSerializer(serializers.ModelSerializer):
@@ -8,6 +9,18 @@ class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
         fields = ('username',)
+
+class PostSerializer(serializers.ModelSerializer):
+    user = serializers.ReadOnlyField(source='user.username')
+
+    def create(self, validated_data):
+        print(validated_data)
+        return demo.objects.create(**validated_data)
+
+    class Meta:
+        model=demo
+        fields=('post','user')
+        extra_kwargs = {'user': {'required': False}}
 
 
 class UserSerializerWithToken(serializers.ModelSerializer):

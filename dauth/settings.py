@@ -74,6 +74,9 @@ JWT_AUTH = {
     'JWT_RESPONSE_PAYLOAD_HANDLER': 'dauth.utils.my_jwt_response_handler'
 }
 REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.JSONParser',
+    ],
     'DEFAULT_PERMISSION_CLASSES': (
         'rest_framework.permissions.IsAuthenticated',
     ),
