@@ -45,13 +45,13 @@ class UserList(APIView):
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-@api_view(['POST'])
+@api_view(['GET','POST'])
 @permission_classes([IsAuthenticated])
 def snippet_list(request):
     """
     List all code snippets, or create a new snippet.
     """
-    
+    print("IN THE METHOD____________________________")
     try:
         Demo = demo.objects.all()
     except demo.DoesNotExist:
